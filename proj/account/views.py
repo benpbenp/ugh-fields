@@ -17,18 +17,15 @@ def home(request):
     if access_token is not None:
         client = DropboxClient(access_token)
         account_info = client.account_info()
-        real_name = account_info["display_name"]
-    return render(request, 'account/home.html', {'real_name':real_name, 'user': request.user})
+    else:
+        account_info = None
+    return render(request, 'account/home.html', {'real_name':real_name, 'user': request.user, 'account_info' : account_info})
 
 @login_required(login_url = '/account/login/')
-def dropbox_logout():
-    username = session.get('user')
-    if username is None:
-        abort(403)
-    db = get_db()
-    db.execute('UPDATE users SET access_token = NULL WHERE username = ?', [username])
-    db.commit()
-    return redirect(url_for('home'))
+def dropbox_logout(request):
+    request.user.profile.dropbox_access_token = None
+    request.user.profile.save()
+    return redirect( 'account_home')
 
 def get_auth_flow(request):
     redirect_uri = request.build_absolute_uri(reverse('dropbox_auth_finish'))
@@ -63,15 +60,6 @@ def logout(request):
     session.pop('user', None)
     flash('You were logged out')
     return redirect(url_for('home'))
-
-
-def main():
-    init_db()
-    app.run()
-
-
-if __name__ == '__main__':
-    main()
 
 @login_required(login_url = '/account/login/')
 def dropbox_auth_start(request):

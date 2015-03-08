@@ -103,6 +103,9 @@ DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
 
 DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET') 
 
+if DROPBOX_APP_KEY == None or DROPBOX_APP_SECRET == None:
+    raise Exception("Invalid Dropbox settings")
+
 if os.uname()[1] != 'ip-172-31-46-74':
     local_settings_name = "ughfields."+os.uname()[1].replace("-","_").replace(".","_") + '_settings'
     try:

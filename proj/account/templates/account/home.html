@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if real_name %}
-    <p>Welcome {{ real_name }}!
-    <p><a href="{% url 'dropbox_logout' %} " method="post">Log out</a>
+  {% if account_info %}
+    <div>
+        <p>Linked to dropbox account <em>{{account_info.email}}</em></p>
+        <p><a href="{% url 'dropbox_logout' %} " method="post">Disassociate this Dropbox account</a>
+    </div>
   {% else %}
+    <div>
+    <h1>Not currently linked to any Dropbox account.</h1>
+    <p>Please grant Ugh Fields permission to access your Dropbox account by following the link below.</p>
     <a href="{% url 'dropbox_auth_start' %}">Link</a>
+    </div>
   {% endif %}  
 <p>Django user id: {{user.id}}</p>
 {% endblock content %}
