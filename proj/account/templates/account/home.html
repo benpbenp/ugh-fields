@@ -3,7 +3,13 @@
   {% if account_info %}
     <div>
         <p>Linked to dropbox account <em>{{account_info.email}}</em></p>
-        <p><a href="{% url 'dropbox_logout' %} " method="post">Disassociate this Dropbox account</a>
+        <p><a href="{% url 'dropbox_logout' %} " method="post">Disassociate this Dropbox account</a></p>
+        <ul class="sites">
+            {% for site in sites %}
+
+                <li>{{ site.domain }}</li>
+            {% endfor %}
+        </ul>
     </div>
   {% else %}
     <div>
@@ -12,5 +18,4 @@
     <a href="{% url 'dropbox_auth_start' %}">Link</a>
     </div>
   {% endif %}  
-<p>Django user id: {{user.id}}</p>
 {% endblock content %}

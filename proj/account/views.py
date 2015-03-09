@@ -17,9 +17,14 @@ def home(request):
     if access_token is not None:
         client = DropboxClient(access_token)
         account_info = client.account_info()
+        import sites.services
+        sites.services.get_delta(request.user)
+        from sites.models import Site
+        sites = Site.objects.filter(user = request.user)
     else:
         account_info = None
-    return render(request, 'account/home.html', {'real_name':real_name, 'user': request.user, 'account_info' : account_info})
+        sites = []
+    return render(request, 'account/home.html', {'real_name':real_name, 'user': request.user, 'account_info' : account_info, 'sites' : sites})
 
 @login_required(login_url = '/account/login/')
 def dropbox_logout(request):

@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     dropbox_access_token = models.CharField(max_length=64, null=True, blank=True) 
+    dropbox_delta_cursor = models.CharField(max_length=256, null=True, blank=True)
 
 
 def create_user_profile(sender, instance, created, **kwargs):

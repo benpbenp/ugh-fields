@@ -21,12 +21,12 @@ PROJECT_DIR = os.path.dirname(os.path.realpath(project_module.__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xa97m_^1l375k3zcl0h+d%g$7raifxu*3gr0%)sj=v(fsil)2('
+SECRET_KEY = os.environ['UGHFIELDS_DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'sites',
 )
 
 MIDDLEWARE_CLASSES = (

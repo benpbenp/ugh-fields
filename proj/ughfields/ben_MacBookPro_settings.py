@@ -1,3 +1,31 @@
+import ughfields as project_module
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+PROJECT_DIR = os.path.dirname(os.path.realpath(project_module.__file__))
+
+DEBUG = True
+
+TEMPLATE_DEBUG = DEBUG
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.dirname(os.path.dirname(BASE_DIR)) + '/logging/log.log',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 DATABASES = {
     'default': {
