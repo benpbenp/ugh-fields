@@ -1,3 +1,5 @@
+Note: I still think this is a compelling idea, but I never got very far with the implementation so I am archiving this repo.
+
 # ugh-fields
 A simple CMS/Static Site generator based on Dropbox API
 
